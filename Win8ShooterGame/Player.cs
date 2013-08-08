@@ -23,7 +23,10 @@ namespace Shooter
         public bool Active;
 
          // Amount of hit points that player has
-
+        public float Scale
+        {
+            get { return PlayerAnimation.scale; }
+        }
         public int Health;
 
          // Get the width of the player ship

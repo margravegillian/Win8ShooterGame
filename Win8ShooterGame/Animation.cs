@@ -11,7 +11,7 @@ namespace Win8ShooterGame
         //the image collection
         Texture2D spriteStrip;
         //the scale used to display sprite strip
-        float scale;
+        public float scale;
         //the time since we last updated the frame
         int elapsedTime;
         //the time we display the frame until next one
@@ -83,10 +83,11 @@ namespace Win8ShooterGame
             sourceRect = new Rectangle(currentFrame * FrameWidth, 0, FrameWidth, FrameHeight);
             // Grab the correct frame in the image strip by multiplying the currentFrame index by the frame width
 
-            destinationRect = new Rectangle((int)Position.X - (int)(FrameWidth * scale) / 2,(int)Position.Y - (int)(FrameHeight * scale) / 2,
-           (int)(FrameWidth * scale),(int)(FrameHeight * scale));
+          //  destinationRect = new Rectangle((int)Position.X - (int)(FrameWidth * scale) / 2,(int)Position.Y - (int)(FrameHeight * scale) / 2,
+         //  (int)(FrameWidth * scale),(int)(FrameHeight * scale));
 
-
+            destinationRect = new Rectangle((int)Position.X - (int)(FrameWidth * scale) / 2, (int)Position.Y - (int)(FrameHeight * scale) / 2, 
+            (int)(FrameWidth * scale), (int)(FrameHeight * scale));
         }
         public void Draw(SpriteBatch spriteBatch)
         {

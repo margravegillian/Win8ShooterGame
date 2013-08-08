@@ -23,7 +23,7 @@ namespace Win8ShooterGame
         float playerMoveSpeed;
         Texture2D mainBackground;
         Rectangle rectBackground;
-        float scale = 1f;
+        //float scale = 1f;
         ParalaxingBackground bgLayer1;
         ParalaxingBackground bgLayer2;
 
@@ -157,8 +157,15 @@ namespace Win8ShooterGame
                 player.Position.Y += playerMoveSpeed;
             }
 
-            player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
-            player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
+           // player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
+           // player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
+
+
+            player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - (player.PlayerAnimation.FrameWidth * player.Scale));
+
+            player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - (player.PlayerAnimation.FrameHeight * player.Scale));
+
+
 
         
         }
