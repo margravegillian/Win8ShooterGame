@@ -30,6 +30,8 @@ namespace Win8ShooterGame
             bgHeight = screenHeight;
 
             bgWidth = screenWidth; 
+
+
             positions = new Vector2[screenWidth / texture.Width +1];
             for (int i = 0; i < positions.Length; i++)
             {
