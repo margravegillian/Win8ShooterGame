@@ -229,6 +229,32 @@ namespace Win8ShooterGame
 
         }
 
+        private void Updatecollision()
+        {
+
+            Rectangle rectangle1;
+            Rectangle rectangle2;
+            rectangle1 = new Rectangle((int)player.Position.X, (int)player.Position.Y, player.Width, player.Height);
+
+            //enemy and player collision
+            for (int i=0;i <enemies.Count;i++)
+            {
+                rectangle2 = new Rectangle((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Width, enemies[i].Height);
+
+                if(rectangle1.Intersects(rectangle2))
+                {
+                    player.Health -= enemies[i].Damage;
+                    enemies[i].Health =0;
+
+                    if (player.Health <= 0)
+                        player.Active = false;
+
+                }
+            }
+
+
+        }
+
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
@@ -245,7 +271,7 @@ namespace Win8ShooterGame
 
             UpdatePlayer(gameTime);
             UpdateEnemies(gameTime);
-            
+            Updatecollision();
             base.Update(gameTime);
         }
 
