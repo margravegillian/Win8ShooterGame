@@ -20,12 +20,14 @@ namespace Win8ShooterGame
         GamePadState previousGamePadState;
         MouseState currentMouseState;
         MouseState previousMouseState;
-        float playerMoveSpeed;
+        private const float playerMoveSpeed =8;
         Texture2D mainBackground;
         Rectangle rectBackground;
-        //float scale = 1f;
+        const float scale = 1f;
         ParalaxingBackground bgLayer1;
         ParalaxingBackground bgLayer2;
+
+       
 
         public Game1()
         {
@@ -47,7 +49,7 @@ namespace Win8ShooterGame
 
             bgLayer2 = new ParalaxingBackground();
             rectBackground = new Rectangle(0,0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-            playerMoveSpeed = 8.0f;
+            
 
            
            // enable freedrag for windows 8 movement
@@ -67,10 +69,15 @@ namespace Win8ShooterGame
             // Load the player resources
 
 
-          
-            Animation playerAnimation = new Animation();
+            Rectangle titleSafeArea = GraphicsDevice.Viewport.TitleSafeArea;
+            var playerPosition = new Vector2(titleSafeArea.X, titleSafeArea.Y + titleSafeArea.Height / 2);
+
+
+           
             Texture2D playerTexture = Content.Load<Texture2D>(@"Graphics\shipAnimation");
-            playerAnimation.Initialize(playerTexture,Vector2.Zero ,115,69,8,30,Color.White,1f,true);
+            Animation playerAnimation = new Animation();
+            playerAnimation.Initialize(playerTexture,playerPosition ,115,69,8,30,Color.White,1f,true);
+          
             bgLayer1.Initialize(Content, @"Graphics\bgLayer1", GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, -1);
 
             bgLayer2.Initialize(Content, @"Graphics\bgLayer2", GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, -2);
@@ -78,7 +85,7 @@ namespace Win8ShooterGame
 
 
             mainBackground = Content.Load<Texture2D>(@"Graphics\mainbackground"); 
-            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            //Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
            
             player.Initialize(playerAnimation,playerPosition);
             
@@ -136,23 +143,23 @@ namespace Win8ShooterGame
             player.Position.X += currentGamePadState.ThumbSticks.Left.X * playerMoveSpeed;
             player.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * playerMoveSpeed;
         //keybaord /dpad
-            if (currentKeyboardState.IsKeyDown(Keys.Left) || currentGamePadState.DPad.Left == ButtonState.Pressed)
+            if (currentKeyboardState.IsKeyDown(Keys.A) || currentGamePadState.DPad.Left == ButtonState.Pressed)
             {
                 player.Position.X -= playerMoveSpeed;
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right) || currentGamePadState.DPad.Right == ButtonState.Pressed)
+            if (currentKeyboardState.IsKeyDown(Keys.D) || currentGamePadState.DPad.Right == ButtonState.Pressed)
             {
                 player.Position.X += playerMoveSpeed;
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up) || currentGamePadState.DPad.Up == ButtonState.Pressed)
+            if (currentKeyboardState.IsKeyDown(Keys.W) || currentGamePadState.DPad.Up == ButtonState.Pressed)
             {
                 player.Position.Y -= playerMoveSpeed;
 
 
             }
-            if (currentKeyboardState.IsKeyDown(Keys.Down) || currentGamePadState.DPad.Down == ButtonState.Pressed)
+            if (currentKeyboardState.IsKeyDown(Keys.S) || currentGamePadState.DPad.Down == ButtonState.Pressed)
             {
                 player.Position.Y += playerMoveSpeed;
             }
