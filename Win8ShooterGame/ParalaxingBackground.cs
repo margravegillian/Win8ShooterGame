@@ -29,10 +29,10 @@ namespace Win8ShooterGame
             this.speed = speed;
             bgHeight = screenHeight;
 
-            bgWidth = screenWidth; 
+            bgWidth = screenWidth;
 
-
-            positions = new Vector2[screenWidth / texture.Width +1];
+            int numOfTiles = (int)(Math.Ceiling(bgWidth / (float)texture.Width) + 1);
+            positions = new Vector2[numOfTiles];
             for (int i = 0; i < positions.Length; i++)
             {
                 positions[i] = new Vector2(i * texture.Width,0);
@@ -55,39 +55,77 @@ namespace Win8ShooterGame
 
                 // If the speed has the background moving to the left
 
-                if (speed <= 0)
-                {
-
+               // if (speed <= 0)
+             //   {
+//
                     // Check the texture is out of view then put that texture at the end of the screen
 
-                    if (positions[i].X <= -texture.Width)
-                    {
+                 //   if (positions[i].X <= -texture.Width)
+                  //  {
 
-                        positions[i].X = texture.Width * (positions.Length - 1);
+                  //      positions[i].X = texture.Width * (positions.Length - 1);
 
-                    }
+                   // }
 
-                }
+               // }
 
                 // If the speed has the background moving to the right
 
-                else
-                {
+              //  else
+              //  {
 
                     // Check if the texture is out of view then position it to the start of the screen
 
-                    if (positions[i].X >= texture.Width * (positions.Length - 1))
-                    {
+               //     if (positions[i].X >= texture.Width * (positions.Length - 1))
+                //    {
 
-                        positions[i].X = -texture.Width;
+                //        positions[i].X = -texture.Width;
+//
+            //        }
 
-                    }
-
-                }
+               // }
 
             } 
 
+            for (int i=0;i<positions.Length;i++)
+            {
+                if (speed <= 0)
+                {
+                    //check if the texutre is out of view and the put that texture at the end of screen
+                    if (positions[i].X <= -texture.Width)
+                    {
+                        WrapTextureToLeft(i);
+
+                    }
+                }
+                else
+                {
+                    if (positions[i].X >= texture.Width * (positions.Length -1))
+                    {
+                        WrapTextureToRight(i);
+                    }
+                }
+            }
+
         }
+
+        private void WrapTextureToLeft(int index)
+        {
+            int prevTexture = index - 1;
+            if (prevTexture <0)
+                prevTexture = positions.Length -1;
+            positions[index].X = positions[prevTexture].X + texture.Width;
+        }
+
+
+        private void WrapTextureToRight(int index)
+        {
+            int nextTexture = index + 1;
+            if (nextTexture == positions.Length)
+                nextTexture = 0;
+            positions[index].X = positions[nextTexture].X - texture.Width;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < positions.Length; i++)
