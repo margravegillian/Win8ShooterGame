@@ -13,6 +13,9 @@ namespace Win8ShooterGame
     /// </summary>
     public class Game1 : Game
     {
+
+
+        public enum States { Menu, Game, Pause, End };
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         Player player;
